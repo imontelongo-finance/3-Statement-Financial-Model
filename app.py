@@ -21,13 +21,6 @@ try:
 except ImportError:
     st.error("Deployment Error: 'generate_test_data.py' not found in /src folder.")
 
-# 3. Imports from your subfolders
-from core.engine import FinanceEngine
-try:
-    from generate_test_data import generate_clean_data
-except ImportError:
-    st.error("Deployment Error: 'generate_test_data.py' not found in /src folder.")
-
 # --- PAGE CONFIG ---
 st.set_page_config(page_title="Strategic Finance Engine | Berlin Ops", layout="wide")
 
