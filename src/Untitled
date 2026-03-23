@@ -1,0 +1,32 @@
+import pandas as pd
+import numpy as np
+from datetime import datetime, timedelta
+
+def generate_erp_dump(filename="data/raw/erp_export_march.csv"):
+    n = 2000
+    dates = [datetime(2026, 1, 1) + timedelta(days=np.random.randint(0, 90)) for _ in range(n)]
+    
+    # Chart of Accounts
+    accounts = [11010, 12010, 21010, 41010, 51010, 61010] # Cash, AR, AP, Rev, COGS, OpEx
+    segments = ['EMEA_DACH', 'EMEA_UK', 'AMER_USA', 'APAC_SGP']
+    depts = ['Sales', 'Marketing', 'Engineering', 'G&A']
+    
+    data = {
+        'G_L_AccountNumber': np.random.choice(accounts, n),
+        'Posting_Date': dates,
+        'Amount_DR': np.random.uniform(0, 10000, n),
+        'Amount_CR': np.random.uniform(0, 10000, n),
+        'Region_Code': np.random.choice(segments, n),
+        'Cost_Center': np.random.choice(depts, n),
+        'Local_Currency': 'EUR',
+        'Voucher_ID': [f"TXN-{10000+i}" for i in range(n)],
+        'Approved_By': 'System_Auto', # Extra column to prove adapter filtering
+        'Tax_Code': 'VAT-19'          # Extra column to prove adapter filtering
+    }
+    
+    df = pd.DataFrame(data)
+    df.to_csv(filename, index=False)
+    print(f"✅ Generated messy ERP dump at {filename}")
+
+if __name__ == "__main__":
+    generate_erp_dump()

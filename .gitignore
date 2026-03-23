@@ -1,0 +1,8 @@
+# Exclude the generated data
+data/raw/*.csv
+
+# Exclude Python cache and local environment folders
+__pycache__/
+.streamlit/
+venv/
+.env
